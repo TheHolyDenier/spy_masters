@@ -4,7 +4,7 @@ class Strings {
   static const new_game = 'Partida nueva';
   static const go_back = 'Volver';
   static const warning_changes = 'No podrá deshacer esta acción.';
-  static const qr = 'Qr escáner';
+  static const export = 'Exporta el tablero';
 
   static const share = 'compartir';
   static const send_data =

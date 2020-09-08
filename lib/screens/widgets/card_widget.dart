@@ -30,7 +30,7 @@ class _CardWidgetState extends State<CardWidget> {
   Widget build(BuildContext context) {
     CardType cardType = _card.cardType;
     return InkWell(
-      onLongPress: () {},
+      onLongPress: onLongClick,
       onTap: onClick,
       child: Card(
         child: Container(
@@ -67,17 +67,32 @@ class _CardWidgetState extends State<CardWidget> {
     if (!_card.isRevealed) {
       if (!isGame) {
         _card.cardType = await askTeam();
+        print('tmp ${_card.cardType}');
       }
-      setState(() {
-        _card.isRevealed = true;
-      });
+      if (_card.cardType != CardType.UNKNOWN) {
+        setState(() {
+          _card.isRevealed = true;
+        });
+      }
     }
   }
 
-  Future<CardType> askTeam() {
-    return showDialog(
+  Future<CardType> askTeam() async {
+    return await showDialog(
       context: context,
       builder: (context) => SelectColorWidget(),
     );
+  }
+
+  Future<void> onLongClick() async {
+    if (!isGame) {
+      _card.cardType = await askTeam();
+    }
+    if (_card.cardType != CardType.UNKNOWN) {
+      _card.isRevealed = true;
+    } else {
+      _card.isRevealed = false;
+    }
+    setState(() {});
   }
 }

@@ -87,7 +87,7 @@ class _ExportQrScreenState extends State<ExportQrScreen> {
       backgroundColor: Palette.background,
       appBar: AppBar(
         title: Text(
-          Strings.qr.toUpperCase(),
+          Strings.export.toUpperCase(),
           style: TextStyle(fontFamily: 'Fjalla'),
         ),
         leading: IconButton(
