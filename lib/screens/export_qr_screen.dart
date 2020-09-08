@@ -139,25 +139,23 @@ class _ExportQrScreenState extends State<ExportQrScreen> {
                     args.randomWords,
                     _index == 0
                         ? args.random
-                        : List.filled(args.randomWords.length, -1),
+                        : List.filled(args.randomWords.length, 4),
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(color: Palette.background),
-                  child: Expanded(
-                    child: PageView(
-                      onPageChanged: (value) {
-                        setState(() {
-                          _index = value;
-                        });
-                      },
-                      controller: _controller,
-                      children: [
-                        ShareWidget(0, args, _getImage),
-                        ShareWidget(1, args, _getImage)
-                      ],
-                    ),
+                  child: PageView(
+                    onPageChanged: (value) {
+                      setState(() {
+                        _index = value;
+                      });
+                    },
+                    controller: _controller,
+                    children: [
+                      ShareWidget(0, args, _getImage), //SPY MASTER
+                      ShareWidget(1, args, _getImage)
+                    ],
                   ),
                 ),
               ],

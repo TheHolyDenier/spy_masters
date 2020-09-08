@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //LIBRARIES
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:spy_masters/models/game_args.dart';
 
 //SCREENS
 
@@ -13,13 +14,16 @@ import '../../utils/strings.dart';
 
 class ShareWidget extends StatelessWidget {
   final index;
-  final args;
+  final GameArgs args;
   final function;
 
   ShareWidget(this.index, this.args, this.function);
 
   @override
   Widget build(BuildContext context) {
+    String data = index == 0
+        ? '$args'
+        : '${List.filled(args.randomWords.length, 4)}_${args.randomWords}';
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -36,7 +40,7 @@ class ShareWidget extends StatelessWidget {
             color: Palette.white,
           ),
           child: QrImage(
-            data: '$args',
+            data: data,
           ),
         ),
         RaisedButton(

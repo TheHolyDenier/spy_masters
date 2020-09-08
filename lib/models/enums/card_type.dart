@@ -33,7 +33,7 @@ extension CardExtension on CardType {
       case CardType.KILLER:
         return 1;
       default:
-        return -1;
+        return 4;
     }
   }
   String get toText {

@@ -92,7 +92,7 @@ class _ReadQrScreenState extends State<ReadQrScreen> {
             .split(', ')
             .map(int.parse)
             .toList();
-        _isSpyMaster = _random.contains(1);
+        _isSpyMaster = !_random.contains(4);
       });
     } catch (e) {
       print('${ReadQrScreen.route} error: $e');
