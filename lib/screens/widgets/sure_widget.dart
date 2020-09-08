@@ -26,15 +26,18 @@ class SureWidget extends StatelessWidget {
         actions: [
           FlatButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, 0);
             },
             child: Text(
               Strings.go_back.toUpperCase(),
             ),
           ),
           FlatButton(
-            onPressed: () => function != null ? _callFunction(context) : Navigator.of(context)
-                .pushNamedAndRemoveUntil(MainScreen.route, (route) => false),
+            onPressed: () => function != null
+                ? _callFunction(context)
+                : Navigator.pop(context, 1),
+            // Navigator.of(context)
+            //     .pushNamedAndRemoveUntil(MainScreen.route, (route) => false),
             child: Text(
               Strings.new_game.toUpperCase(),
             ),

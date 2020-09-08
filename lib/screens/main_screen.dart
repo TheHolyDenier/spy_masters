@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spy_masters/models/enums/card_type.dart';
+import 'package:spy_masters/screens/widgets/new_game_widget.dart';
 
 //SCREENS
 import './export_qr_screen.dart';
@@ -26,15 +28,13 @@ class _MainScreenState extends State<MainScreen> {
   List<int> _random = [];
   List<int> _randomWords = [];
 
-  _MainScreenState() {
-    if (_random.length == 0) {
-      randomize();
-    }
-  }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (_random.isEmpty && _randomWords.isEmpty) _createNewGame();
 
-  void randomize() {
-    _random = GameGenerator.genDistribution();
-    _randomWords = GameGenerator.getWords();
+    });
   }
 
   @override
@@ -73,16 +73,37 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: GameWidget(_randomWords, _random),
+      body: _randomWords.isNotEmpty && _random.isNotEmpty
+          ? GameWidget(_randomWords, _random)
+          : Container(),
     );
   }
 
-  void _newGame() {
-    showDialog(
+  Future<void> _newGame() async {
+    int reply = await showDialog(
       context: context,
       builder: (_) => SureWidget(),
       barrierDismissible: true,
     );
+    if (reply == 1) {
+      setState(() {
+        _random = [];
+        _randomWords = [];
+      });
+      _createNewGame();
+    }
+  }
+
+  Future<void> _createNewGame() async {
+    Map<CardType, int> options = await showDialog(
+        context: context,
+        builder: (_) => NewGameWidget(),
+        barrierDismissible: false);
+
+    setState(() {
+      _random = GameGenerator.genDistribution(options: options ?? null);
+      _randomWords = GameGenerator.getWords(_random.length);
+    });
   }
 
   void _scanQr() {

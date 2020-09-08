@@ -67,7 +67,6 @@ class _CardWidgetState extends State<CardWidget> {
     if (!_card.isRevealed) {
       if (!isGame) {
         _card.cardType = await askTeam();
-        print('tmp ${_card.cardType}');
       }
       if (_card.cardType != CardType.UNKNOWN) {
         setState(() {

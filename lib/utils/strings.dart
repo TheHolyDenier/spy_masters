@@ -37,4 +37,7 @@ class Strings {
   static const killer = 'Asesino';
 
   static const unknown = 'Desconocido';
+
+  static const def = 'Preconfigurados';
+  static const save = 'Guardar';
 }
