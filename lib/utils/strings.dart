@@ -17,8 +17,8 @@ class Strings {
   static const export_spy = 'Jefe espía';
   static const export_players = 'Jugadores';
 
-  static const flash_off = 'Sin flash';
-  static const flash_on = 'Con flash';
+  static const flash_off = 'No flash';
+  static const flash_on = 'Flash';
   static const error_qr = 'Necesita escanear un QR compatible.';
 
   static const error_share =
@@ -35,4 +35,6 @@ class Strings {
   static const team_blue = 'Equipo azul';
   static const team_red = 'Equipo rojo';
   static const killer = 'Asesino';
+
+  static const unknown = 'Desconocido';
 }

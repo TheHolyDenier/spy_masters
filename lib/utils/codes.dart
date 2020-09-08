@@ -1,5 +1,5 @@
-class Codename {
-  static final words = [
+class SpyReport {
+  static final clues = [
     'Hollywood',
     'Pantalla',
     'Jugar',
