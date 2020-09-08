@@ -6,6 +6,7 @@ import 'package:barcode_scan/barcode_scan.dart';
 //SCREENS
 import './widgets/game_widget.dart';
 import './widgets/no_permissions_widget.dart';
+import './widgets/sure_widget.dart';
 
 //MODELS
 
@@ -26,7 +27,6 @@ class _ReadQrScreenState extends State<ReadQrScreen> {
   List<int> _random = [];
   List<int> _randomWords = [];
 
-  bool _scanning = true;
   bool _permissions;
   bool _isSpyMaster = false;
 
@@ -44,7 +44,7 @@ class _ReadQrScreenState extends State<ReadQrScreen> {
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [IconButton(icon: Icon(MyIcons.qr_scanner), onPressed: _scan)],
+        actions: [IconButton(icon: Icon(MyIcons.qr_scanner), onPressed: _random.isEmpty ? _scan : _newScan)],
       ),
       body: _permissions
           ? Stack(
@@ -76,12 +76,25 @@ class _ReadQrScreenState extends State<ReadQrScreen> {
     );
   }
 
+  void _newScan() {
+    showDialog(
+      context: context,
+      builder: (_) => SureWidget(function: _scan),
+      barrierDismissible: true,
+    );
+  }
+
+
   Future<void> _scan() async {
+    setState(() {
+      _random = [];
+      _randomWords = [];
+    });
     var result = await BarcodeScanner.scan();
+
     try {
       var lists = result.split('_');
       setState(() {
-        _scanning = false;
         _random = lists[0]
             .substring(1, lists[0].length - 1)
             .split(', ')

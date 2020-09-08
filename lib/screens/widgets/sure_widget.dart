@@ -10,6 +10,10 @@ import '../../utils/palette.dart';
 import '../../utils/strings.dart';
 
 class SureWidget extends StatelessWidget {
+  final function;
+
+  SureWidget({this.function});
+
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
@@ -29,11 +33,8 @@ class SureWidget extends StatelessWidget {
             ),
           ),
           FlatButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(MainScreen.route, (route) => false);
-              // Navigator.popAndPushNamed(context, MainScreen.route);
-            },
+            onPressed: () => function != null ? _callFunction(context) : Navigator.of(context)
+                .pushNamedAndRemoveUntil(MainScreen.route, (route) => false),
             child: Text(
               Strings.new_game.toUpperCase(),
             ),
@@ -41,5 +42,10 @@ class SureWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _callFunction(BuildContext context) {
+    Navigator.pop(context);
+    function();
   }
 }
